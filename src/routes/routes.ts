@@ -1,6 +1,6 @@
 import { ComponentClass, FunctionComponent } from 'react'
 
-import HomeScreen from '@/screens/HomeScreen'
+import HomeScreen from '@/screens/Home/HomeScreen'
 
 import { routeNames } from './routeNames'
 
