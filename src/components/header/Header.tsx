@@ -26,7 +26,12 @@ export const Header: FC<HeaderPropsType> = ({ navigation }): ReactElement => {
       {Object.keys(routes)
         .filter((key) => routes[key].isHeaderButton)
         .map((key) => (
-          <HeaderButton key={key} routeDir={key} title={key} onClickHandler={buttonOnClickFunc} />
+          <HeaderButton
+            key={key}
+            routeDir={routes[key].routeName}
+            title={routes[key].headerButtonName as string}
+            onClickHandler={buttonOnClickFunc}
+          />
         ))}
     </ScrollView>
   )
