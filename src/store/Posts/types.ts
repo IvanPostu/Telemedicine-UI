@@ -6,6 +6,7 @@ export enum postsActionTypeConstants {
   STOP_LOAD = '@Posts/STOP_LOAD',
   ADD_POSTS = '@Posts/ADD_POSTS',
   ADD_IMAGE_FOR_POST = '@Posts/ADD_IMAGE_FOR_POST',
+  REPLACE_POSTS_STATE = '@Posts/REPLACE_POSTS_STATE',
 }
 
 export type Post = {
@@ -48,9 +49,15 @@ export interface AddImageToPostActionType extends Action {
   }
 }
 
+export interface ReplacePostsStateActionType extends Action {
+  type: typeof postsActionTypeConstants.REPLACE_POSTS_STATE
+  payload: PostsStateType
+}
+
 export type PostsRootActionType =
   | FetchPostsActionType
   | AddPostsActionType
   | StartFetchActionType
   | StopFetchActionType
   | AddImageToPostActionType
+  | ReplacePostsStateActionType

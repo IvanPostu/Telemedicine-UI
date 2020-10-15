@@ -2,10 +2,11 @@ import React, { Component, ReactElement } from 'react'
 import { View, StyleSheet, Button, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
+
 import { Card } from '@/components/card/Card'
 import { Animation1 } from '@/components/loadingAnimations'
 import { GlobalStateType } from '@/store'
-import { fetchNewPosts } from '@/store/Posts/actionCreators'
+import { fetchNewPosts, fetchPostsFirstTime } from '@/store/Posts/actionCreators'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -15,7 +16,7 @@ function mapStateToProps(state: GlobalStateType) {
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  const actionCreators = { fetchNewPosts }
+  const actionCreators = { fetchNewPosts, fetchPostsFirstTime }
   return bindActionCreators(actionCreators, dispatch)
 }
 
@@ -24,7 +25,7 @@ type CardsPropType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapD
 class Cards extends Component<CardsPropType> {
   componentDidMount(): void {
     if (!this.props.isFetch && this.props.posts.length === 0) {
-      this.props.fetchNewPosts()
+      this.props.fetchPostsFirstTime()
     }
   }
 

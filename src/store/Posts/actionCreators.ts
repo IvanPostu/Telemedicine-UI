@@ -5,21 +5,37 @@ import {
   StartFetchActionType,
   StopFetchActionType,
   AddImageToPostActionType,
+  ReplacePostsStateActionType,
   Post,
   postsActionTypeConstants as T,
+  PostsStateType,
 } from './types'
 import { GlobalStateType } from '@/store'
 import { Action } from 'redux'
+import { FileJSONStorage, Storage } from '@/storage'
+import { fetchPosts, fetchImageForPost } from '@/webApi'
 
-type AsyncActionCreatorType<T extends Action> = (
+type AsyncActionCreatorType<T extends Action | Action> = (
   dispatch: ThunkDispatch<GlobalStateType, unknown, T>,
   getState: () => GlobalStateType,
 ) => void
 
-function addPostsActionCreator(posts: Array<Post>): AddPostsActionType {
-  return {
+function addPostsActionCreator(posts: Array<Post>): AsyncActionCreatorType<AddPostsActionType> {
+  const action: AddPostsActionType = {
     type: T.ADD_POSTS,
     payload: posts,
+  }
+
+  return async (
+    dispatch: ThunkDispatch<GlobalStateType, unknown, Action>,
+    getState: () => GlobalStateType,
+  ) => {
+    dispatch(action)
+    const storage: Storage<PostsStateType> = new FileJSONStorage<PostsStateType>()
+    const state: PostsStateType = getState().postsReducer
+    state.isFetch = false
+
+    await storage.save('data', state)
   }
 }
 
@@ -35,67 +51,99 @@ function stopFetchActionCreator(): StopFetchActionType {
   }
 }
 
-function addImageToPostActionCreator(id: number, base64Image: string): AddImageToPostActionType {
+function replacePostsStateActionCreator(state: PostsStateType): ReplacePostsStateActionType {
   return {
+    type: T.REPLACE_POSTS_STATE,
+    payload: state,
+  }
+}
+
+function addImageToPostActionCreator(
+  id: number,
+  base64Image: string,
+): AsyncActionCreatorType<AddImageToPostActionType> {
+  const action: AddImageToPostActionType = {
     type: T.ADD_IMAGE_FOR_POST,
     payload: {
       base64Image,
       id,
     },
   }
+
+  return async (
+    dispatch: ThunkDispatch<GlobalStateType, unknown, Action>,
+    getState: () => GlobalStateType,
+  ) => {
+    dispatch(action)
+    const storage: Storage<PostsStateType> = new FileJSONStorage<PostsStateType>()
+    const state: PostsStateType = getState().postsReducer
+    state.isFetch = false
+
+    await storage.save('data', state)
+  }
 }
 
 export function fetchNewPosts(): AsyncActionCreatorType<FetchPostsActionType> {
   return async (
-    dispatch: ThunkDispatch<
-      GlobalStateType,
-      unknown,
-      | FetchPostsActionType
-      | AddPostsActionType
-      | StartFetchActionType
-      | StopFetchActionType
-      | AddImageToPostActionType
-    >,
+    dispatch: ThunkDispatch<GlobalStateType, unknown, Action>,
     getState: () => GlobalStateType,
   ) => {
     try {
       const pageNumber = getState().postsReducer.currentPage
       const postsPerPage = getState().postsReducer.POSTS_PER_PAGE
+      const isFetch = getState().postsReducer.isFetch
+      if (isFetch) {
+        return
+      }
+
       dispatch(startFetchActionCreator())
-      const serverResponse = await fetch(
-        `https://picsum.photos/v2/list?page=${pageNumber}&limit=${postsPerPage}`,
-      )
-      console.log(`FETCH: https://picsum.photos/v2/list?page=${pageNumber}&limit=${postsPerPage}`)
-
-      if (serverResponse.status === 200 && serverResponse.ok) {
-        const data = await serverResponse.json()
-
-        const postsArray: Array<Post> = []
-        for (let i = 0; i < data.length; i++) {
-          const item = data[i]
-          postsArray.push({
-            author: item.author,
-            base64Image: '',
-            downloadImageUrl: item['download_url'],
-            id: Number(item.id),
-            webUrl: item['url'],
-          })
+      const postsArray: Array<Post> = await fetchPosts(pageNumber, postsPerPage)
+      dispatch(addPostsActionCreator(postsArray))
+      postsArray.forEach(async (a) => {
+        try {
+          const base64ImageData = await fetchImageForPost(a.id)
+          dispatch(addImageToPostActionCreator(a.id, base64ImageData))
+        } catch (e) {
+          console.error(e)
         }
+      })
 
+      dispatch(stopFetchActionCreator())
+    } catch (error) {
+      dispatch(stopFetchActionCreator())
+      console.error(error)
+    }
+  }
+}
+
+export function fetchPostsFirstTime(): AsyncActionCreatorType<FetchPostsActionType> {
+  return async (
+    dispatch: ThunkDispatch<GlobalStateType, unknown, Action>,
+    getState: () => GlobalStateType,
+  ) => {
+    try {
+      const pageNumber = getState().postsReducer.currentPage
+      const postsPerPage = getState().postsReducer.POSTS_PER_PAGE
+      const isFetch = getState().postsReducer.isFetch
+      if (isFetch) {
+        return
+      }
+      dispatch(startFetchActionCreator())
+      const storage: Storage<PostsStateType> = new FileJSONStorage<PostsStateType>()
+      const stateFromStorage = await storage.load('data')
+
+      if (stateFromStorage !== null) {
+        dispatch(replacePostsStateActionCreator(stateFromStorage))
+      } else {
+        dispatch(startFetchActionCreator())
+        const postsArray: Array<Post> = await fetchPosts(pageNumber, postsPerPage)
         dispatch(addPostsActionCreator(postsArray))
         postsArray.forEach(async (a) => {
-          const serverResponse = await fetch(`https://picsum.photos/id/${a.id}/320/240`)
-          if (serverResponse.ok && serverResponse.status === 200) {
-            const bufferImage = await serverResponse.blob()
-            const reader = new FileReader()
-            reader.readAsDataURL(bufferImage)
-            reader.onloadend = function () {
-              const dataUrl = reader.result as string
-              const base64 = dataUrl.split(',')[1]
-              dispatch(addImageToPostActionCreator(a.id, base64))
-            }
-          } else {
-            console.warn(`Fetch image error, status=${serverResponse.status}`)
+          try {
+            const base64ImageData = await fetchImageForPost(a.id)
+            dispatch(addImageToPostActionCreator(a.id, base64ImageData))
+          } catch (e) {
+            console.error(e)
           }
         })
       }

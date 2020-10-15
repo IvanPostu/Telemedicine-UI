@@ -43,6 +43,11 @@ export const postsReducer: Reducer<PostsStateType, PostsRootActionType> = (
         posts: state.posts.concat(action.payload),
         currentPage: state.currentPage + 1,
       }
+    case T.REPLACE_POSTS_STATE:
+      return {
+        ...state,
+        ...action.payload,
+      }
     case T.FETCH_POST:
     default:
       return state
