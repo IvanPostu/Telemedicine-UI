@@ -1,16 +1,61 @@
-import { Card } from '@/components/card/Card'
 import React, { Component, ReactElement } from 'react'
 import { View, StyleSheet, Button, Dimensions } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators, Dispatch } from 'redux'
+import { Card } from '@/components/card/Card'
+import { Animation1 } from '@/components/loadingAnimations'
+import { GlobalStateType } from '@/store'
+import { fetchNewPosts } from '@/store/Posts/actionCreators'
 
-export default class Cards extends Component {
+function mapStateToProps(state: GlobalStateType) {
+  return {
+    isFetch: state.postsReducer.isFetch,
+    posts: state.postsReducer.posts,
+  }
+}
+
+function mapDispatchToProps(dispatch: Dispatch) {
+  const actionCreators = { fetchNewPosts }
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+type CardsPropType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
+
+class Cards extends Component<CardsPropType> {
+  componentDidMount(): void {
+    if (!this.props.isFetch && this.props.posts.length === 0) {
+      this.props.fetchNewPosts()
+    }
+  }
+
   render(): ReactElement {
+    const posts = this.props.posts
+    const items = posts.length
+      ? posts.map((a, i) => {
+          const isOdd = i % 2 == 0
+          return (
+            <Card
+              key={a.id}
+              id={a.id}
+              author={a.author}
+              base64Image={a.base64Image}
+              bgColor={isOdd ? 'black' : 'white'}
+              txtColor={isOdd ? 'white' : 'black'}
+            />
+          )
+        })
+      : null
+    const isLoading = this.props.isFetch
     return (
       <View style={styles.container}>
-        <Card bgColor="black" txtColor="white" />
-        <Card bgColor="white" txtColor="black" />
-        <View style={styles.buttonContainer}>
-          <Button title="See more..." onPress={() => {}} />
-        </View>
+        {items}
+        {isLoading ? (
+          <Animation1 />
+        ) : (
+          <View style={styles.buttonContainer}>
+            <Button title="See more..." onPress={() => this.props.fetchNewPosts()} />
+          </View>
+        )}
       </View>
     )
   }
@@ -26,3 +71,5 @@ const styles = StyleSheet.create({
     left: Dimensions.get('screen').width * 0.5 - BUTTON_WIDTH / 2,
   },
 })
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cards)

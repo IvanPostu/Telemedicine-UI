@@ -7,36 +7,39 @@ const CARD_DEFAULT_BF_COLOR = '#c9cedd'
 const CARD_DEFAULT_TXT_COLOR = 'black'
 
 type CardPropType = {
+  author: string
+  id: number
+  base64Image: string
   bgColor?: string
   txtColor?: string
 }
 
 export function Card(props: CardPropType): ReactElement {
-  const [img, setImg] = React.useState('')
+  // const [img, setImg] = React.useState('')
   const bgColor = props.bgColor || CARD_DEFAULT_BF_COLOR
   const txtColor = props.txtColor || CARD_DEFAULT_TXT_COLOR
 
-  React.useEffect(() => {
-    fetch('https://picsum.photos/id/1001/320/240')
-      .then((response) => response.blob())
-      .then((image) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(image)
-        reader.onloadend = function () {
-          const dataUrl = reader.result as string
-          const base64 = dataUrl.split(',')[1]
-          setImg(base64)
-        }
-      })
-      .catch((err) => console.error(err))
-      .catch((err) => console.error(err))
-  }, [img])
+  // React.useEffect(() => {
+  //   fetch(`https://picsum.photos/id/${props.id}/320/240`)
+  //     .then((response) => response.blob())
+  //     .then((image) => {
+  //       const reader = new FileReader()
+  //       reader.readAsDataURL(image)
+  //       reader.onloadend = function () {
+  //         const dataUrl = reader.result as string
+  //         const base64 = dataUrl.split(',')[1]
+  //         setImg(base64)
+  //       }
+  //     })
+  //     .catch((err) => console.error(err))
+  //     .catch((err) => console.error(err))
+  // }, [img])
 
   return (
     <View style={{ ...styles.container, ...{ backgroundColor: bgColor } }}>
-      <Text style={{ ...styles.title, ...{ color: txtColor } }}>Title</Text>
-      <Text style={{ ...styles.author, ...{ color: txtColor } }}>Author: aaa bbb</Text>
-      <Image style={styles.image} source={{ uri: `data:image/gif;base64,${img}` }} />
+      <Text style={{ ...styles.title, ...{ color: txtColor } }}>Post number: {props.id}</Text>
+      <Text style={{ ...styles.author, ...{ color: txtColor } }}>Author: {props.author}</Text>
+      <Image style={styles.image} source={{ uri: `data:image/gif;base64,${props.base64Image}` }} />
       <CardButton title="Info" onClickHandler={() => {}} />
     </View>
   )
