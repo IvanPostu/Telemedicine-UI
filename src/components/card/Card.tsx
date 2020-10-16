@@ -15,31 +15,17 @@ type CardPropType = {
 }
 
 export function Card(props: CardPropType): ReactElement {
-  // const [img, setImg] = React.useState('')
   const bgColor = props.bgColor || CARD_DEFAULT_BF_COLOR
   const txtColor = props.txtColor || CARD_DEFAULT_TXT_COLOR
-
-  // React.useEffect(() => {
-  //   fetch(`https://picsum.photos/id/${props.id}/320/240`)
-  //     .then((response) => response.blob())
-  //     .then((image) => {
-  //       const reader = new FileReader()
-  //       reader.readAsDataURL(image)
-  //       reader.onloadend = function () {
-  //         const dataUrl = reader.result as string
-  //         const base64 = dataUrl.split(',')[1]
-  //         setImg(base64)
-  //       }
-  //     })
-  //     .catch((err) => console.error(err))
-  //     .catch((err) => console.error(err))
-  // }, [img])
+  const img = props.base64Image ? (
+    <Image style={styles.image} source={{ uri: `data:image/gif;base64,${props.base64Image}` }} />
+  ) : null
 
   return (
     <View style={{ ...styles.container, ...{ backgroundColor: bgColor } }}>
       <Text style={{ ...styles.title, ...{ color: txtColor } }}>Post number: {props.id}</Text>
       <Text style={{ ...styles.author, ...{ color: txtColor } }}>Author: {props.author}</Text>
-      <Image style={styles.image} source={{ uri: `data:image/gif;base64,${props.base64Image}` }} />
+      {img}
       <CardButton title="Info" onClickHandler={() => {}} />
     </View>
   )
@@ -50,6 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
     paddingBottom: 10,
+    minHeight: 300,
   },
   title: {
     fontSize: 22,
