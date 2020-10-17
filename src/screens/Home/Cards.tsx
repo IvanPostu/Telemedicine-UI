@@ -46,7 +46,7 @@ class Cards extends Component<CardsPropType> {
               author={a.author}
               base64Image={a.base64Image}
               onInfoClick={() =>
-                this.props.navigation.navigate(routeNames.WebView, {
+                this.props.navigation.navigate(routeNames.WebViewScreen, {
                   urlPath: a.webUrl,
                 })
               }

@@ -2,6 +2,15 @@ import RNFS from 'react-native-fs'
 import { Storage } from './Storage'
 
 export class FileJSONStorage<T> implements Storage<T> {
+  async remove(key: string): Promise<void> {
+    try {
+      const path = RNFS.ExternalDirectoryPath + `/${key}.txt`
+      await RNFS.unlink(path)
+    } catch (e) {
+      console.warn(`File ${key} doesn't exists!!!`)
+    }
+  }
+
   async save(key: string, data: T): Promise<void> {
     try {
       const path = RNFS.ExternalDirectoryPath + `/${key}.txt`
