@@ -10,6 +10,7 @@ type CardPropType = {
   author: string
   id: number
   base64Image: string
+  onInfoClick: () => void
   bgColor?: string
   txtColor?: string
 }
@@ -26,7 +27,7 @@ export function Card(props: CardPropType): ReactElement {
       <Text style={{ ...styles.title, ...{ color: txtColor } }}>Post number: {props.id}</Text>
       <Text style={{ ...styles.author, ...{ color: txtColor } }}>Author: {props.author}</Text>
       {img}
-      <CardButton title="Info" onClickHandler={() => {}} />
+      <CardButton title="Info" onClickHandler={props.onInfoClick} />
     </View>
   )
 }

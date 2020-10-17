@@ -2,6 +2,7 @@ import { ComponentClass, FunctionComponent } from 'react'
 
 import HomeScreen from '@/screens/Home/HomeScreen'
 import RandomScreen from '@/screens/Random/RandomScreen'
+import WebViewScreen from '@/screens/WebView/WebViewScreen'
 
 import { routeNames } from './routeNames'
 
@@ -27,6 +28,11 @@ export const routes: CustomRouteType = {
     isHeaderButton: true,
     routeName: routeNames.RandomScreen,
     headerButtonName: 'Random',
+  },
+  WebViewScreen: {
+    component: WebViewScreen,
+    isHeaderButton: false,
+    routeName: routeNames.WebView,
   },
 }
 

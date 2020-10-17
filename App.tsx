@@ -18,10 +18,11 @@ const App: FC = (): ReactElement => {
               key={key}
               name={routes[key].routeName}
               component={routes[key].component}
-              options={({ navigation, route }) => ({
+              options={({ navigation }) => ({
                 // eslint-disable-next-line react/display-name
                 header: (props) => <Header {...props} />,
                 animationEnabled: true,
+                navigation,
               })}
             />
           ))}

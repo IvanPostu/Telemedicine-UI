@@ -7,6 +7,8 @@ import { Card } from '@/components/card/Card'
 import { Animation1 } from '@/components/loadingAnimations'
 import { GlobalStateType } from '@/store'
 import { fetchNewPosts, fetchPostsFirstTime } from '@/store/Posts/actionCreators'
+import { NavigationProp, ParamListBase } from '@react-navigation/native'
+import { routeNames } from '@/routes/routeNames'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -20,7 +22,10 @@ function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(actionCreators, dispatch)
 }
 
-type CardsPropType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
+type CardsPropType = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> & {
+    navigation: NavigationProp<ParamListBase>
+  }
 
 class Cards extends Component<CardsPropType> {
   componentDidMount(): void {
@@ -40,6 +45,11 @@ class Cards extends Component<CardsPropType> {
               id={a.id}
               author={a.author}
               base64Image={a.base64Image}
+              onInfoClick={() =>
+                this.props.navigation.navigate(routeNames.WebView, {
+                  urlPath: a.webUrl,
+                })
+              }
               bgColor={isOdd ? 'black' : 'white'}
               txtColor={isOdd ? 'white' : 'black'}
             />

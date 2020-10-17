@@ -3,6 +3,12 @@ import { Dimensions, View, StyleSheet, Button } from 'react-native'
 import { Card } from '@/components/card/Card'
 import { Post } from '@/store/Posts/types'
 import { fetchRandomPost } from '@/webApi'
+import { NavigationProp, ParamListBase } from '@react-navigation/native'
+import { routeNames } from '@/routes/routeNames'
+
+type RandomScreenPropType = {
+  navigation: NavigationProp<ParamListBase>
+}
 
 async function fetchRandomPostCallback(): Promise<Post> {
   try {
@@ -21,7 +27,7 @@ async function fetchRandomPostCallback(): Promise<Post> {
   }
 }
 
-export default function RandomScreen(): ReactElement {
+export default function RandomScreen(props: RandomScreenPropType): ReactElement {
   const componentIsMounted = useRef(true)
   const [post, setPost] = useState<Post>({
     author: '',
@@ -53,7 +59,16 @@ export default function RandomScreen(): ReactElement {
 
   return (
     <View>
-      <Card id={post.id} author={post.author} base64Image={post.base64Image} />
+      <Card
+        id={post.id}
+        author={post.author}
+        base64Image={post.base64Image}
+        onInfoClick={() =>
+          props.navigation.navigate(routeNames.WebView, {
+            urlPath: post.webUrl,
+          })
+        }
+      />
       <View style={styles.buttonContainer}>
         <Button title="New random" onPress={onNewRandomButtonClick} />
       </View>
