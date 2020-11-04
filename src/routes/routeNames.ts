@@ -3,4 +3,5 @@ export enum routeNames {
   RandomScreen = 'RandomScreen_ndff11',
   WebViewScreen = 'WebView_93849031',
   OptionsScreen = 'Options_a0fadf',
+  WelcomeScreen = 'WelcomeScreen',
 }

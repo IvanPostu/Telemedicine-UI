@@ -23,7 +23,7 @@ export const Header: FC<HeaderPropsType> = ({ navigation }): ReactElement => {
     >
       <StatusBar hidden={true} />
 
-      {Object.keys(routes)
+      {/* {Object.keys(routes)
         .filter((key) => routes[key].isHeaderButton)
         .map((key) => (
           <HeaderButton
@@ -32,7 +32,7 @@ export const Header: FC<HeaderPropsType> = ({ navigation }): ReactElement => {
             title={routes[key].headerButtonName as string}
             onClickHandler={buttonOnClickFunc}
           />
-        ))}
+        ))} */}
     </ScrollView>
   )
 }
@@ -40,13 +40,13 @@ export const Header: FC<HeaderPropsType> = ({ navigation }): ReactElement => {
 const styles = StyleSheet.create({
   scrollWrapper: {
     width: Dimensions.get('window').width,
-    height: constants.defaultHeaderHeight,
+    height: 0, //constants.defaultHeaderHeight,
     backgroundColor: '#256E7B',
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   elementsContainer: {
     backgroundColor: 'transparent',
-    height: constants.defaultHeaderHeight,
+    height: 0, //constants.defaultHeaderHeight,
   },
 })

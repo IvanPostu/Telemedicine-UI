@@ -4,6 +4,7 @@ import HomeScreen from '@/screens/Home/HomeScreen'
 import RandomScreen from '@/screens/Random/RandomScreen'
 import WebViewScreen from '@/screens/WebView/WebViewScreen'
 import { OptionsScreen } from '@/screens/Options/OptionsScreen'
+import WelcomeScreen from '@/screens/WelcomeScreen/WelcomeScreen'
 
 import { routeNames } from './routeNames'
 
@@ -18,28 +19,10 @@ type CustomRouteType = {
 }
 
 export const routes: CustomRouteType = {
-  HomeScreen: {
-    component: HomeScreen,
-    isHeaderButton: true,
-    routeName: routeNames.MainScreen,
-    headerButtonName: 'Home',
-  },
-  RandomScreen: {
-    component: RandomScreen,
-    isHeaderButton: true,
-    routeName: routeNames.RandomScreen,
-    headerButtonName: 'Random',
-  },
-  WebViewScreen: {
-    component: WebViewScreen,
+  WelcomeScreen: {
+    component: WelcomeScreen,
     isHeaderButton: false,
-    routeName: routeNames.WebViewScreen,
-  },
-  OptionsScreen: {
-    component: OptionsScreen,
-    isHeaderButton: true,
-    routeName: routeNames.OptionsScreen,
-    headerButtonName: 'Options',
+    routeName: routeNames.WelcomeScreen,
   },
 }
 
