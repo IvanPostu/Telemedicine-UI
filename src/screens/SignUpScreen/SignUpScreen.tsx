@@ -2,28 +2,12 @@ import { rootGreenColor } from '@/constants'
 import React, { Component, ReactElement } from 'react'
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { BackArrow } from '@/components/BackArrow/BackArrow'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import { UserAddPhoto } from '@/components/UserAddPhoto'
 import { CustomTextInput } from '@/components/CustomTextInput/CustomTextInput'
 import { ButtonOne } from '@/components/ButtonOne/ButtonOne'
-
-const Header = (props: SignUpScreenPropType) => {
-  return (
-    <View style={styles.header}>
-      <View>
-        <BackArrow
-          onClick={() => {
-            props.navigation.goBack()
-          }}
-        />
-      </View>
-      <View style={{ left: '50%', position: 'absolute', transform: [{ translateX: -40 }] }}>
-        <Text style={{ fontSize: 22, color: 'white' }}>Register</Text>
-      </View>
-    </View>
-  )
-}
+import { CustomHeader } from '@/components/CustomHeader/CustomHeader'
+import { BackArrow } from '@/components/BackArrow/BackArrow'
 
 type SignUpScreenPropType = {
   navigation: NavigationProp<ParamListBase>
@@ -37,7 +21,11 @@ export default class SignUpScreen extends Component<SignUpScreenPropType> {
   render(): ReactElement {
     return (
       <ScrollView style={styles.container}>
-        <Header navigation={this.props.navigation} />
+        <CustomHeader
+          leftElement={<BackArrow onClick={() => {}} />}
+          centerElement={<Text style={{ fontSize: 22, color: 'white' }}>Register</Text>}
+          rightElement={<View style={{ width: 30 }} />}
+        />
         <View style={styles.addPhotos}>
           <UserAddPhoto />
         </View>
@@ -76,12 +64,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
   },
-  header: {
-    height: 50,
-    paddingHorizontal: 10,
-    backgroundColor: rootGreenColor,
-    justifyContent: 'center',
-  },
+
   addPhotos: {
     alignItems: 'center',
     margin: 25,

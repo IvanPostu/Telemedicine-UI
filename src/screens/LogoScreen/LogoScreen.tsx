@@ -15,8 +15,12 @@ export const LogoScreen: FC<LogoScreenPropType> = (props: LogoScreenPropType): R
     }, 1500)
   }, [])
 
+  const onClickHandler = React.useCallback(() => {
+    props.navigation.navigate(routeNames.WelcomeScreen)
+  }, [])
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onTouchEnd={onClickHandler}>
       <Text style={styles.logo}>Telemedicine</Text>
     </View>
   )

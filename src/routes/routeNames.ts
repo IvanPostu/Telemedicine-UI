@@ -3,4 +3,5 @@ export enum routeNames {
   LogoScreen = 'LogoScreen',
   LoginScreen = 'LoginScreen',
   SignUpScreen = 'SignUpScreen',
+  DoctorListScreen = 'DoctorListScreen',
 }

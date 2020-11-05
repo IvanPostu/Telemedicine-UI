@@ -1,10 +1,46 @@
 import { ButtonOne } from '@/components/ButtonOne/ButtonOne'
 import React, { Component, ReactElement } from 'react'
-import { View, Text, StyleSheet, Dimensions, TextInput } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TextInput, Alert } from 'react-native'
 import { UserIcon } from '@/components/UserIcon/UserIcon'
 import { LockIcon } from '@/components/LockIcon/LockIcon'
+import { NavigationProp, ParamListBase } from '@react-navigation/native'
+import { routeNames } from '@/routes/routeNames'
 
-export default class LoginScreen extends Component {
+type LoginScreenPropType = {
+  navigation: NavigationProp<ParamListBase>
+}
+
+type LoginScreenStateType = {
+  email: string
+  password: string
+}
+
+const DEFAULT_EMAIL_HARDCODE = 'user'
+const DEFAULT_PASSWORD_HARDCODE = 'user'
+
+export default class LoginScreen extends Component<LoginScreenPropType, LoginScreenStateType> {
+  constructor(props: LoginScreenPropType) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+    }
+
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  onSubmit(): void {
+    const { email, password } = this.state
+    if (email === DEFAULT_EMAIL_HARDCODE && password === DEFAULT_PASSWORD_HARDCODE) {
+      this.props.navigation.navigate(routeNames.DoctorListScreen)
+    } else {
+      Alert.alert(
+        'Login with error',
+        `Try to write email: '${DEFAULT_EMAIL_HARDCODE}' and password '${DEFAULT_PASSWORD_HARDCODE}'.`,
+      )
+    }
+  }
+
   render(): ReactElement {
     return (
       <View style={styles.container}>
@@ -13,6 +49,7 @@ export default class LoginScreen extends Component {
           <View>
             <UserIcon />
             <TextInput
+              onChangeText={(text: string) => this.setState({ email: text })}
               placeholderTextColor="#fff"
               placeholder="Email Addres"
               style={styles.textInput}
@@ -22,6 +59,8 @@ export default class LoginScreen extends Component {
             <LockIcon />
 
             <TextInput
+              secureTextEntry
+              onChangeText={(text: string) => this.setState({ password: text })}
               placeholderTextColor="#fff"
               placeholder="Password"
               style={styles.textInput}
@@ -31,7 +70,7 @@ export default class LoginScreen extends Component {
             style={styles.buttonStyles}
             bgColor="white"
             borderColor="white"
-            onClick={() => {}}
+            onClick={this.onSubmit}
             fullWidth
           >
             Login
