@@ -6,6 +6,8 @@ type ButtonOnePropType = {
   bgColor: string
   borderColor: string
   textColor?: string
+  fullWidth?: boolean
+
   onClick: (e: GestureResponderEvent) => void
 } & PropsWithChildren<unknown>
 
@@ -20,6 +22,7 @@ export const ButtonOne: FC<ButtonOnePropType> = (props): ReactElement => {
         ...styles.headerButton,
         backgroundColor: props.bgColor,
         borderColor: props.borderColor,
+        width: props.fullWidth ? '100%' : Dimensions.get('screen').width * 0.8,
       }}
     >
       <View>
@@ -33,14 +36,12 @@ const styles = StyleSheet.create({
   headerButton: {
     paddingHorizontal: 7,
     paddingVertical: 3,
-    marginHorizontal: 5,
     borderWidth: 2,
     height: 55,
     borderRadius: 50,
     minWidth: 70,
     justifyContent: 'center',
     alignItems: 'center',
-    width: Dimensions.get('screen').width * 0.8,
   },
   customBtnText: {
     fontSize: 16,
