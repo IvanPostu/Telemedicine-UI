@@ -31,7 +31,12 @@ export default class WelcomeScreen extends Component<WelcomeScreenPropType> {
           </ButtonOne>
         </View>
         <View style={styles.login}>
-          <ButtonOne bgColor="transparent" textColor="white" borderColor="white" onClick={() => {}}>
+          <ButtonOne
+            bgColor="transparent"
+            textColor="white"
+            borderColor="white"
+            onClick={() => this.props.navigation.navigate(routeNames.LoginScreen)}
+          >
             Login
           </ButtonOne>
         </View>

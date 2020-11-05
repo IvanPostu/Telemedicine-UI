@@ -1,5 +1,5 @@
-import React, { FC, PropsWithChildren, ReactElement, SyntheticEvent } from 'react'
-import { StyleSheet, Text, View, Dimensions, GestureResponderEvent } from 'react-native'
+import React, { FC, PropsWithChildren, ReactElement } from 'react'
+import { StyleSheet, Text, View, Dimensions, GestureResponderEvent, ViewStyle } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type ButtonOnePropType = {
@@ -7,12 +7,14 @@ type ButtonOnePropType = {
   borderColor: string
   textColor?: string
   fullWidth?: boolean
+  style?: ViewStyle
 
   onClick: (e: GestureResponderEvent) => void
 } & PropsWithChildren<unknown>
 
 export const ButtonOne: FC<ButtonOnePropType> = (props): ReactElement => {
   const textColor = props.textColor || 'rgb(8, 218, 95)'
+  const customStyles = props.style ? props.style : {}
 
   return (
     <TouchableOpacity
@@ -23,6 +25,7 @@ export const ButtonOne: FC<ButtonOnePropType> = (props): ReactElement => {
         backgroundColor: props.bgColor,
         borderColor: props.borderColor,
         width: props.fullWidth ? '100%' : Dimensions.get('screen').width * 0.8,
+        ...customStyles,
       }}
     >
       <View>
