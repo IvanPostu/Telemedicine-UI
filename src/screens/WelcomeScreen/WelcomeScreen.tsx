@@ -1,8 +1,18 @@
 import { ButtonOne } from '@/components/ButtonOne/ButtonOne'
+import { routeNames } from '@/routes/routeNames'
+import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import React, { Component, ReactElement } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 
-export default class WelcomeScreen extends Component {
+type WelcomeScreenPropType = {
+  navigation: NavigationProp<ParamListBase>
+}
+
+export default class WelcomeScreen extends Component<WelcomeScreenPropType> {
+  constructor(props: WelcomeScreenPropType) {
+    super(props)
+  }
+
   render(): ReactElement {
     return (
       <View style={styles.container}>
@@ -12,7 +22,11 @@ export default class WelcomeScreen extends Component {
           nostrud exercitation ullamco
         </Text>
         <View style={styles.signUp}>
-          <ButtonOne bgColor="white" borderColor="white" onClick={() => {}}>
+          <ButtonOne
+            bgColor="white"
+            borderColor="white"
+            onClick={() => this.props.navigation.navigate(routeNames.SignUpScreen)}
+          >
             Sign Up
           </ButtonOne>
         </View>

@@ -1,12 +1,10 @@
 import { ComponentClass, FunctionComponent } from 'react'
 
-import HomeScreen from '@/screens/Home/HomeScreen'
-import RandomScreen from '@/screens/Random/RandomScreen'
-import WebViewScreen from '@/screens/WebView/WebViewScreen'
-import { OptionsScreen } from '@/screens/Options/OptionsScreen'
 import WelcomeScreen from '@/screens/WelcomeScreen/WelcomeScreen'
+import { LogoScreen } from '@/screens/LogoScreen/LogoScreen'
 
 import { routeNames } from './routeNames'
+import SignUpScreen from '@/screens/SignUpScreen/SignUpScreen'
 
 type CustomRouteType = {
   [prop: string]: {
@@ -19,10 +17,20 @@ type CustomRouteType = {
 }
 
 export const routes: CustomRouteType = {
+  LogoScreen: {
+    component: LogoScreen,
+    isHeaderButton: false,
+    routeName: routeNames.LogoScreen,
+  },
   WelcomeScreen: {
     component: WelcomeScreen,
     isHeaderButton: false,
     routeName: routeNames.WelcomeScreen,
+  },
+  SignUpScreen: {
+    component: SignUpScreen,
+    isHeaderButton: false,
+    routeName: routeNames.SignUpScreen,
   },
 }
 
