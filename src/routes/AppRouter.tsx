@@ -2,7 +2,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import React, { FC, ReactElement } from 'react'
 import { routes } from './routes'
-import { Header } from '@/components/header'
 
 const Stack = createStackNavigator()
 
@@ -17,7 +16,7 @@ const AppNavigator: FC = (): ReactElement => {
             component={routes[key].component}
             options={({ navigation }) => ({
               // eslint-disable-next-line react/display-name
-              header: (props) => <Header {...props} />,
+              header: (props) => null,
               animationEnabled: true,
               navigation,
             })}

@@ -2,7 +2,7 @@ import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import React, { FC, ReactElement } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { routeNames } from '@/routes/routeNames'
-import { rootGreenColor } from '@/constants'
+import { AppLayout } from '@/components/Layout/AppLayout'
 
 type LogoScreenPropType = {
   navigation: NavigationProp<ParamListBase>
@@ -10,9 +10,9 @@ type LogoScreenPropType = {
 
 export const LogoScreen: FC<LogoScreenPropType> = (props: LogoScreenPropType): ReactElement => {
   React.useEffect(() => {
-    setTimeout(() => {
-      props.navigation.navigate(routeNames.WelcomeScreen)
-    }, 1500)
+    // setTimeout(() => {
+    //   props.navigation.navigate(routeNames.WelcomeScreen)
+    // }, 1540)
   }, [])
 
   const onClickHandler = React.useCallback(() => {
@@ -20,9 +20,11 @@ export const LogoScreen: FC<LogoScreenPropType> = (props: LogoScreenPropType): R
   }, [])
 
   return (
-    <View style={styles.container} onTouchEnd={onClickHandler}>
-      <Text style={styles.logo}>Telemedicine</Text>
-    </View>
+    <AppLayout>
+      <View style={styles.container} onTouchEnd={onClickHandler}>
+        <Text style={styles.logo}>Telemedicine</Text>
+      </View>
+    </AppLayout>
   )
 }
 
@@ -31,10 +33,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
-    backgroundColor: rootGreenColor,
   },
   logo: {
-    fontSize: 34,
+    marginTop: 0,
+    fontWeight: 'bold',
+    fontSize: 30,
     color: 'white',
   },
 })

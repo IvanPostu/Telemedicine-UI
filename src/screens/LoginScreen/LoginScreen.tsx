@@ -80,7 +80,7 @@ export default class LoginScreen extends Component<LoginScreenPropType, LoginScr
             bgColor="transparent"
             borderColor="transparent"
             textColor="white"
-            onClick={() => {}}
+            onClick={() => this.props.navigation.navigate(routeNames.SignUpScreen)}
             fullWidth
           >
             SIGNUP

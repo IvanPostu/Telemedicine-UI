@@ -22,7 +22,7 @@ export default class SignUpScreen extends Component<SignUpScreenPropType> {
     return (
       <ScrollView style={styles.container}>
         <CustomHeader
-          leftElement={<BackArrow onClick={() => {}} />}
+          leftElement={<BackArrow onClick={() => this.props.navigation.goBack()} />}
           centerElement={<Text style={{ fontSize: 22, color: 'white' }}>Register</Text>}
           rightElement={<View style={{ width: 30 }} />}
         />
@@ -68,10 +68,11 @@ const styles = StyleSheet.create({
   addPhotos: {
     alignItems: 'center',
     margin: 25,
+    marginTop: 45,
     marginBottom: 10,
   },
   inputsContainer: {
-    padding: Dimensions.get('screen').width * 0.05,
+    padding: 20,
   },
   inputTitle: {
     fontSize: 17,
