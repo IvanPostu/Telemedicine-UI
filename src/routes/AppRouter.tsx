@@ -17,6 +17,7 @@ const AppNavigator: FC = (): ReactElement => {
             options={({ navigation }) => ({
               // eslint-disable-next-line react/display-name
               header: (props) => null,
+
               animationEnabled: true,
               navigation,
             })}

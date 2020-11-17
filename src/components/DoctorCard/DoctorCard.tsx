@@ -1,30 +1,37 @@
 import React, { FC, ReactElement } from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import img1 from '@/assets/chiochia1.png'
+import { StyleSheet, View, Text, Image, TouchableOpacity, ImageSourcePropType } from 'react-native'
 import startImg from '@/assets/star.png'
 import location from '@/assets/location.png'
 
-type DoctorCardPropType = unknown
+type DoctorCardPropType = {
+  doctorName: string
+  doctorType: string
+  address: string
+  doctorPhoto: ImageSourcePropType
+  likes: string
+}
 
-export const DoctorCard: FC<DoctorCardPropType> = (): ReactElement => {
+export const DoctorCard: FC<DoctorCardPropType> = (props: DoctorCardPropType): ReactElement => {
+  const { address, doctorName, doctorPhoto, doctorType, likes } = props
+
   return (
     <TouchableOpacity activeOpacity={0.7}>
       <View style={styles.container}>
-        <Image style={styles.img} source={img1} />
+        <Image style={styles.img} source={doctorPhoto} />
         <View style={styles.content}>
           <View style={styles.line1}>
-            <Text style={styles.medicName}>Dudung Sokmati</Text>
+            <Text style={styles.medicName}>{doctorName}</Text>
             <Image style={{ width: 20, height: 20, marginLeft: 15 }} source={startImg} />
-            <Text style={{ marginLeft: 5, color: 'grey' }}>4.7</Text>
+            <Text style={{ marginLeft: 5, color: 'grey' }}>{likes}</Text>
           </View>
           <View style={styles.line2}>
             <Text style={{ fontStyle: 'italic', color: 'rgb(8, 218, 95)', fontSize: 15 }}>
-              Eye Specialist
+              {doctorType}
             </Text>
           </View>
           <View style={styles.line3}>
             <Image style={{ width: 20, height: 25 }} source={location} />
-            <Text style={{ marginLeft: 5, color: 'grey' }}>St. Bronxlyn 212</Text>
+            <Text style={{ marginLeft: 5, color: 'grey' }}>{address}</Text>
           </View>
         </View>
       </View>
