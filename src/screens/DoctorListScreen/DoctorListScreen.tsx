@@ -38,6 +38,7 @@ class DoctorListScreenComponent extends Component<DoctorListScreenPropType> {
             {this.props.doctors.map((item) => {
               return (
                 <DoctorCard
+                  onClick={() => {}}
                   key={item.doctorId}
                   address={item.address}
                   doctorName={item.name}

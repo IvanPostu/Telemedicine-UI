@@ -1,5 +1,13 @@
 import React, { ReactElement } from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity, ViewStyle } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ViewStyle,
+  GestureResponderEvent,
+} from 'react-native'
 import doctorPhoto from '@/assets/p1.png'
 import startImg from '@/assets/star.png'
 
@@ -8,13 +16,15 @@ type DoctorCardAPropType = {
   doctorType: string
   doctorNote: string
   style?: ViewStyle
+  rightMargin?: number
+  onClick: (e: GestureResponderEvent) => void
 }
 
 export const DoctorCardA = (props: DoctorCardAPropType): ReactElement => {
   const dStyle = props.style || {}
 
   return (
-    <TouchableOpacity activeOpacity={0.7}>
+    <TouchableOpacity activeOpacity={0.7} onPress={props.onClick}>
       <View style={{ ...cardStyle.container, ...dStyle }}>
         <Image style={cardStyle.img} source={doctorPhoto} />
         <View style={cardStyle.content}>
@@ -35,6 +45,7 @@ export const DoctorCardA = (props: DoctorCardAPropType): ReactElement => {
             <Text style={cardStyle.note}>{props.doctorNote}</Text>
           </View>
         </View>
+        <View style={{ width: props.rightMargin || 0 }}></View>
       </View>
     </TouchableOpacity>
   )

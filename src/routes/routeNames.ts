@@ -5,4 +5,5 @@ export enum routeNames {
   SignUpScreen = 'SignUpScreen',
   DoctorListScreen = 'DoctorListScreen',
   NotificationScreen = 'NotificationScreen',
+  DoctorDetailsScreen = 'DoctorDetailsScreen',
 }

@@ -12,7 +12,7 @@ const DEFAULT_DESCRIPTION =
 const initialState: DoctorsStateType = {
   doctors: [
     {
-      doctorId: '1',
+      doctorId: 'a1',
       description: DEFAULT_DESCRIPTION,
       grade: '4.9',
       name: 'Dudung Sokmati',
@@ -21,7 +21,7 @@ const initialState: DoctorsStateType = {
       image: p1,
     },
     {
-      doctorId: '2',
+      doctorId: 'a2',
       description: DEFAULT_DESCRIPTION,
       grade: '4.2',
       name: 'Nunung Brandon',
@@ -30,7 +30,7 @@ const initialState: DoctorsStateType = {
       image: p2,
     },
     {
-      doctorId: '3',
+      doctorId: 'a3',
       description: DEFAULT_DESCRIPTION,
       grade: '3.9',
       name: 'Udin Batakooran',
@@ -39,7 +39,7 @@ const initialState: DoctorsStateType = {
       image: p3,
     },
     {
-      doctorId: '4',
+      doctorId: 'a4',
       description: DEFAULT_DESCRIPTION,
       grade: '3.1',
       name: 'Cucup Joentravo',
@@ -48,7 +48,7 @@ const initialState: DoctorsStateType = {
       image: p4,
     },
     {
-      doctorId: '5',
+      doctorId: 'a5',
       description: DEFAULT_DESCRIPTION,
       grade: '2.1',
       name: 'Diding Sulidinger',

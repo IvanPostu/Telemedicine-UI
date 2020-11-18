@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 12,
     color: 'rgb(96,123,140)',
-    fontSize: 16,
+    lineHeight: 24,
+    fontSize: 18,
   },
 })

@@ -16,6 +16,7 @@ import { rootGreenColor } from '@/constants'
 function mapStateToProps(state: GlobalStateType) {
   return {
     notifications: state.notificationsReducer.notifications,
+    doctors: state.doctorsReducer.doctors,
   }
 }
 
@@ -49,9 +50,11 @@ class NotificationScreenComponent extends Component<DoctorListScreenPropType> {
                     name={item.requestDetails.name}
                   />
                   <DoctorInfo
-                    doctorName="Dudung Sokmati"
-                    doctorNote="4.9"
-                    doctorType="Eye Specialist"
+                    navigation={this.props.navigation}
+                    doctorName={this.props.doctors[0].name}
+                    doctorNote={this.props.doctors[0].grade}
+                    doctorType={this.props.doctors[0].specialisation}
+                    doctorId={this.props.doctors[0].doctorId}
                   />
                 </View>
               )
