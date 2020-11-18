@@ -5,10 +5,11 @@ import { ThreePoints } from '@/components/Icons/ThreePoints/ThreePoints'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import React, { Component, ReactElement } from 'react'
 import { StyleSheet, Text, ScrollView, View, Dimensions } from 'react-native'
-import p0 from '@/assets/p0.png'
 import p1 from '@/assets/p1.png'
 import p2 from '@/assets/p2.png'
 import p3 from '@/assets/p3.png'
+import p4 from '@/assets/p4.png'
+import p5 from '@/assets/p5.png'
 import { BottomMenu } from '@/components/BotomMenu/BottomMenu'
 
 type DoctorListScreenPropType = {
@@ -29,48 +30,76 @@ export class DoctorListScreen extends Component<DoctorListScreenPropType> {
             centerElement={<Text style={{ fontSize: 22, color: 'white' }}>Doctor List</Text>}
             rightElement={<ThreePoints onClick={() => {}} />}
           />
-          <ScrollView style={styles.cardsContainer}>
+          <ScrollView showsVerticalScrollIndicator={false} style={styles.cardsContainer}>
             <DoctorCard
               address="st. Bronxlyn 212"
               doctorName="Dudung Sokmati"
               doctorType="Eye specialist"
-              doctorPhoto={p0}
+              doctorPhoto={p1}
               likes="4.9"
             />
             <DoctorCard
               address="st. Bronxlyn 212"
               doctorName="Nunung Brandon"
               doctorType="Eye specialist"
-              doctorPhoto={p1}
+              doctorPhoto={p2}
               likes="4.2"
             />
             <DoctorCard
               address="st. Bronxlyn 212"
               doctorName="Udin Batakooran"
               doctorType="Eye specialist"
-              doctorPhoto={p2}
+              doctorPhoto={p3}
               likes="3.9"
             />
             <DoctorCard
               address="st. Bronxlyn 212"
               doctorName="Cucup Joentravo"
               doctorType="Eye specialist"
-              doctorPhoto={p3}
+              doctorPhoto={p4}
               likes="3.1"
+            />
+            <DoctorCard
+              address="st. Bronxlyn 212"
+              doctorName="Diding Sulidinger"
+              doctorType="Eye specialist"
+              doctorPhoto={p5}
+              likes="2.1"
+            />
+            <DoctorCard
+              address="st. Bronxlyn 212"
+              doctorName="Dudung Sokmati"
+              doctorType="Eye specialist"
+              doctorPhoto={p1}
+              likes="4.9"
+            />
+            <DoctorCard
+              address="st. Bronxlyn 212"
+              doctorName="Nunung Brandon"
+              doctorType="Eye specialist"
+              doctorPhoto={p2}
+              likes="4.2"
+            />
+            <DoctorCard
+              address="st. Bronxlyn 212"
+              doctorName="Udin Batakooran"
+              doctorType="Eye specialist"
+              doctorPhoto={p3}
+              likes="3.9"
             />
             <DoctorCard
               address="st. Bronxlyn 212"
               doctorName="Cucup Joentravo"
               doctorType="Eye specialist"
-              doctorPhoto={p3}
+              doctorPhoto={p4}
               likes="3.1"
             />
             <DoctorCard
               address="st. Bronxlyn 212"
-              doctorName="Cucup Joentravo"
+              doctorName="Diding Sulidinger"
               doctorType="Eye specialist"
-              doctorPhoto={p3}
-              likes="3.1"
+              doctorPhoto={p5}
+              likes="2.1"
             />
           </ScrollView>
         </View>

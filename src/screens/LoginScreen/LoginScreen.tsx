@@ -5,6 +5,7 @@ import { UserIcon } from '@/components/UserIcon/UserIcon'
 import { LockIcon } from '@/components/LockIcon/LockIcon'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import { routeNames } from '@/routes/routeNames'
+import { AppLayout } from '@/components/Layout/AppLayout'
 
 type LoginScreenPropType = {
   navigation: NavigationProp<ParamListBase>
@@ -43,50 +44,52 @@ export default class LoginScreen extends Component<LoginScreenPropType, LoginScr
 
   render(): ReactElement {
     return (
-      <View style={styles.container}>
-        <Text style={styles.logo}>Telemedicine</Text>
-        <View style={styles.inputsContainer}>
-          <View>
-            <UserIcon />
-            <TextInput
-              onChangeText={(text: string) => this.setState({ email: text })}
-              placeholderTextColor="#fff"
-              placeholder="Email Addres"
-              style={styles.textInput}
-            />
-          </View>
-          <View>
-            <LockIcon />
+      <AppLayout>
+        <View style={styles.container}>
+          <Text style={styles.logo}>Telemedicine</Text>
+          <View style={styles.inputsContainer}>
+            <View>
+              <UserIcon />
+              <TextInput
+                onChangeText={(text: string) => this.setState({ email: text })}
+                placeholderTextColor="#fff"
+                placeholder="Email Addres"
+                style={styles.textInput}
+              />
+            </View>
+            <View>
+              <LockIcon />
 
-            <TextInput
-              secureTextEntry
-              onChangeText={(text: string) => this.setState({ password: text })}
-              placeholderTextColor="#fff"
-              placeholder="Password"
-              style={styles.textInput}
-            />
+              <TextInput
+                secureTextEntry
+                onChangeText={(text: string) => this.setState({ password: text })}
+                placeholderTextColor="#fff"
+                placeholder="Password"
+                style={styles.textInput}
+              />
+            </View>
+            <ButtonOne
+              style={styles.buttonStyles}
+              bgColor="white"
+              borderColor="white"
+              onClick={this.onSubmit}
+              fullWidth
+            >
+              Login
+            </ButtonOne>
+            <ButtonOne
+              style={styles.buttonStyles}
+              bgColor="transparent"
+              borderColor="transparent"
+              textColor="white"
+              onClick={() => this.props.navigation.navigate(routeNames.SignUpScreen)}
+              fullWidth
+            >
+              SIGNUP
+            </ButtonOne>
           </View>
-          <ButtonOne
-            style={styles.buttonStyles}
-            bgColor="white"
-            borderColor="white"
-            onClick={this.onSubmit}
-            fullWidth
-          >
-            Login
-          </ButtonOne>
-          <ButtonOne
-            style={styles.buttonStyles}
-            bgColor="transparent"
-            borderColor="transparent"
-            textColor="white"
-            onClick={() => this.props.navigation.navigate(routeNames.SignUpScreen)}
-            fullWidth
-          >
-            SIGNUP
-          </ButtonOne>
         </View>
-      </View>
+      </AppLayout>
     )
   }
 }
@@ -95,7 +98,6 @@ const TOP_MARGIN = 0.16
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgb(8, 218, 95)',
     width: '100%',
     height: '100%',
     alignItems: 'center',
@@ -107,7 +109,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   inputsContainer: {
-    padding: Dimensions.get('screen').width * 0.05,
+    // padding: Dimensions.get('screen').width * 0.05,
+    padding: 20,
     width: '100%',
     // backgroundColor: 'red',
     top: '37%',
