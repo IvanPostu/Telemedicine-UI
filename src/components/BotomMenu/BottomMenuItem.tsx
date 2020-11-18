@@ -1,5 +1,12 @@
 import React, { FunctionComponent, ReactElement } from 'react'
-import { TouchableOpacity, View, Image, Text, ImageSourcePropType } from 'react-native'
+import {
+  TouchableOpacity,
+  View,
+  Image,
+  Text,
+  ImageSourcePropType,
+  GestureResponderEvent,
+} from 'react-native'
 import homeImg from '@/assets/Home.png'
 import notificationImg from '@/assets/Notification.png'
 import profileImg from '@/assets/Profile.png'
@@ -19,6 +26,7 @@ type BottomMenuItem = {
   width: number
   height: number
   type: 'Notification' | 'Profile' | 'Schedule' | 'Home'
+  onClick: (event: GestureResponderEvent) => void
 }
 
 export const BottomMenuItem: FunctionComponent<BottomMenuItem> = (
@@ -45,13 +53,19 @@ export const BottomMenuItem: FunctionComponent<BottomMenuItem> = (
       gIcon = notificationImgGreen
       break
     default:
-      throw 1
+      throw new Error('Unknown prop.type value for BottomMenuItem component.')
   }
 
   const isGreen = props.iconColor === 'green'
 
   return (
-    <TouchableOpacity activeOpacity={0.7} delayLongPress={1} delayPressIn={1} delayPressOut={1}>
+    <TouchableOpacity
+      onPress={props.onClick}
+      activeOpacity={0.7}
+      delayLongPress={1}
+      delayPressIn={1}
+      delayPressOut={1}
+    >
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Image
           style={{ maxHeight: props.height, maxWidth: props.width }}

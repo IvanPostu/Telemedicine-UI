@@ -11,12 +11,20 @@ import p3 from '@/assets/p3.png'
 import p4 from '@/assets/p4.png'
 import p5 from '@/assets/p5.png'
 import { BottomMenu } from '@/components/BotomMenu/BottomMenu'
+import { GlobalStateType } from '@/store'
+import { connect } from 'react-redux'
+
+function mapStateToProps(state: GlobalStateType) {
+  return {
+    notifications: state.notificationsReducer.notifications,
+  }
+}
 
 type DoctorListScreenPropType = {
   navigation: NavigationProp<ParamListBase>
-}
+} & ReturnType<typeof mapStateToProps>
 
-export class DoctorListScreen extends Component<DoctorListScreenPropType> {
+class DoctorListScreenComponent extends Component<DoctorListScreenPropType> {
   constructor(props: DoctorListScreenPropType) {
     super(props)
   }
@@ -28,7 +36,7 @@ export class DoctorListScreen extends Component<DoctorListScreenPropType> {
           <CustomHeader
             leftElement={<BackArrow onClick={() => this.props.navigation.goBack()} />}
             centerElement={<Text style={{ fontSize: 22, color: 'white' }}>Doctor List</Text>}
-            rightElement={<ThreePoints onClick={() => {}} />}
+            rightElement={<ThreePoints onClick={() => console.log(1)} />}
           />
           <ScrollView showsVerticalScrollIndicator={false} style={styles.cardsContainer}>
             <DoctorCard
@@ -103,7 +111,11 @@ export class DoctorListScreen extends Component<DoctorListScreenPropType> {
             />
           </ScrollView>
         </View>
-        <BottomMenu />
+        <BottomMenu
+          navigation={this.props.navigation}
+          selected={'Home'}
+          notificationsIsPresent={this.props.notifications.length > 0}
+        />
       </View>
     )
   }
@@ -124,3 +136,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
 })
+
+export const DoctorListScreen = connect(mapStateToProps)(DoctorListScreenComponent)

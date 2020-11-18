@@ -61,10 +61,8 @@ const styles = StyleSheet.create({
     width: 200,
     height: 70,
     margin: 20,
-    // backgroundColor: 'red',
   },
   line1: {
-    // backgroundColor: 'yellow',
     width: '100%',
     height: 25,
     alignItems: 'center',
