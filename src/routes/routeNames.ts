@@ -6,4 +6,5 @@ export enum routeNames {
   DoctorListScreen = 'DoctorListScreen',
   NotificationScreen = 'NotificationScreen',
   DoctorDetailsScreen = 'DoctorDetailsScreen',
+  HomeScreen = 'HomeScreen',
 }

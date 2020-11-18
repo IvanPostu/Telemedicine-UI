@@ -108,11 +108,7 @@ export class DoctorDetailsScreenComponent extends Component<DoctorDetailsScreenC
             </ButtonOne>
           </View>
         </ScrollView>
-        <BottomMenu
-          navigation={this.props.navigation}
-          selected={'Notification'}
-          notificationsIsPresent={false}
-        />
+        <BottomMenu navigation={this.props.navigation} selected={'Home'} notificationsIsPresent />
       </View>
     )
   }

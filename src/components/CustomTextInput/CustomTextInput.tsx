@@ -1,14 +1,23 @@
 import React from 'react'
-import { StyleSheet, TextInput } from 'react-native'
+import { StyleSheet, TextInput, TextStyle } from 'react-native'
 
 type CustomTextInputPropType = {
   placeholder?: string
+  style?: TextStyle
+  multiline?: boolean
 }
 
 export const CustomTextInput = (props: CustomTextInputPropType) => {
   const placeholder = props.placeholder || ''
+  const dStyle = props.style || {}
 
-  return <TextInput placeholder={placeholder} style={styles.container} />
+  return (
+    <TextInput
+      multiline={props.multiline}
+      placeholder={placeholder}
+      style={{ ...styles.container, ...dStyle }}
+    />
+  )
 }
 
 const styles = StyleSheet.create({

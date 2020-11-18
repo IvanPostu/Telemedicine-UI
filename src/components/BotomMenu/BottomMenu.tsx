@@ -34,7 +34,13 @@ export const BottomMenu: FC<BottomMenuPropType> = (props: BottomMenuPropType): R
       />
 
       {/* CENTER */}
-      <TouchableOpacity activeOpacity={0.7} delayLongPress={1} delayPressIn={1} delayPressOut={1}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        delayLongPress={1}
+        delayPressIn={1}
+        delayPressOut={1}
+        onPress={() => props.navigation.navigate(routeNames.HomeScreen)}
+      >
         <View style={styles.centerButton}>
           <Text style={{ color: 'white', fontSize: 38 }}>+</Text>
         </View>

@@ -9,6 +9,7 @@ import LoginScreen from '@/screens/LoginScreen/LoginScreen'
 import { DoctorListScreen } from '@/screens/DoctorListScreen/DoctorListScreen'
 import { NotificationScreen } from '@/screens/NotificationScreen/NotificationScreen'
 import { DoctorDetailsScreen } from '@/screens/DoctorDetailsScreen/DoctorDetailsScreen'
+import { HomeScreen } from '@/screens/HomeScreen/HomeScreen'
 
 type CustomRouteType = {
   [prop: string]: {
@@ -55,6 +56,11 @@ export const routes: CustomRouteType = {
     component: DoctorDetailsScreen,
     isHeaderButton: false,
     routeName: routeNames.DoctorDetailsScreen,
+  },
+  HomeScreen: {
+    component: HomeScreen,
+    isHeaderButton: false,
+    routeName: routeNames.HomeScreen,
   },
 }
 
