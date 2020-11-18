@@ -1,6 +1,6 @@
 import { rootGreenColor } from '@/constants'
 import React, { Component, ReactElement } from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import { UserAddPhoto } from '@/components/UserAddPhoto'
@@ -50,7 +50,7 @@ export default class SignUpScreen extends Component<SignUpScreenPropType> {
             fullWidth
             bgColor={rootGreenColor}
             borderColor={rootGreenColor}
-            onClick={() => {}}
+            onClick={() => console.log('Sign up next button press')}
           >
             Next
           </ButtonOne>

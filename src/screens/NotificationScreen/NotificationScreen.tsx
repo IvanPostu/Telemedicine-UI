@@ -63,7 +63,7 @@ class NotificationScreenComponent extends Component<DoctorListScreenPropType> {
                 fullWidth
                 bgColor={rootGreenColor}
                 borderColor={rootGreenColor}
-                onClick={() => {}}
+                onClick={() => console.log(1)}
               >
                 Confirm
               </ButtonOne>
@@ -73,7 +73,7 @@ class NotificationScreenComponent extends Component<DoctorListScreenPropType> {
                 style={{ marginTop: 30, marginBottom: 15 }}
                 bgColor={'transparent'}
                 borderColor={'rgb(144, 164, 173)'}
-                onClick={() => {}}
+                onClick={() => console.log(1)}
               >
                 Cancel Request
               </ButtonOne>
