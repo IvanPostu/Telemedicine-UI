@@ -3,6 +3,7 @@ import { BottomMenu } from '@/components/BotomMenu/BottomMenu'
 import { CustomHeader } from '@/components/CustomHeader/CustomHeader'
 import { DoctorCard } from '@/components/DoctorCard/DoctorCard'
 import { ThreePoints } from '@/components/Icons/ThreePoints/ThreePoints'
+import { routeNames } from '@/routes/routeNames'
 import { GlobalStateType } from '@/store'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import React, { Component, ReactElement } from 'react'
@@ -38,7 +39,11 @@ class DoctorListScreenComponent extends Component<DoctorListScreenPropType> {
             {this.props.doctors.map((item) => {
               return (
                 <DoctorCard
-                  onClick={() => {}}
+                  onClick={() =>
+                    this.props.navigation.navigate(routeNames.DoctorDetailsScreen, {
+                      doctorId: item.doctorId,
+                    })
+                  }
                   key={item.doctorId}
                   address={item.address}
                   doctorName={item.name}

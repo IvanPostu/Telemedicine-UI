@@ -1,6 +1,6 @@
 import { rootGreenColor } from '@/constants'
 import React, { ReactElement } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ImageSourcePropType } from 'react-native'
 import { DoctorCardA } from '@/components/DoctorCardA/DoctorCardA'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import { routeNames } from '@/routes/routeNames'
@@ -11,6 +11,7 @@ type DoctorInfoPropType = {
   doctorNote: string
   doctorId: string
   navigation: NavigationProp<ParamListBase>
+  doctorImage: ImageSourcePropType
 }
 
 export const DoctorInfo = (props: DoctorInfoPropType): ReactElement => {
@@ -18,6 +19,7 @@ export const DoctorInfo = (props: DoctorInfoPropType): ReactElement => {
     <View style={styles.container}>
       <Text style={styles.title}>Doctor</Text>
       <DoctorCardA
+        doctorImage={props.doctorImage}
         onClick={() =>
           props.navigation.navigate(routeNames.DoctorDetailsScreen, {
             doctorId: props.doctorId,

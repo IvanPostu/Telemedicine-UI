@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { FC, Fragment, ReactElement } from 'react'
 import {
   View,
   Text,
@@ -7,11 +7,13 @@ import {
   TouchableOpacity,
   ViewStyle,
   GestureResponderEvent,
+  ImageSourcePropType,
 } from 'react-native'
-import doctorPhoto from '@/assets/p1.png'
+// import doctorPhoto from '@/assets/p1.png'
 import startImg from '@/assets/star.png'
 
 type DoctorCardAPropType = {
+  doctorImage: ImageSourcePropType
   doctorName: string
   doctorType: string
   doctorNote: string
@@ -20,13 +22,25 @@ type DoctorCardAPropType = {
   onClick: (e: GestureResponderEvent) => void
 }
 
+const Stars: FC<{ n: number }> = ({ n }): ReactElement => {
+  const arr = [...Array(n).keys()]
+  return (
+    <Fragment>
+      {arr.map((item) => (
+        <Image key={item} style={{ width: 20, height: 20, marginRight: 5 }} source={startImg} />
+      ))}
+    </Fragment>
+  )
+}
+
 export const DoctorCardA = (props: DoctorCardAPropType): ReactElement => {
   const dStyle = props.style || {}
+  const grade = Math.round(Number(props.doctorNote))
 
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={props.onClick}>
       <View style={{ ...cardStyle.container, ...dStyle }}>
-        <Image style={cardStyle.img} source={doctorPhoto} />
+        <Image style={cardStyle.img} source={props.doctorImage} />
         <View style={cardStyle.content}>
           <View style={cardStyle.line1}>
             <Text style={cardStyle.medicName}>{props.doctorName}</Text>
@@ -37,11 +51,7 @@ export const DoctorCardA = (props: DoctorCardAPropType): ReactElement => {
             </Text>
           </View>
           <View style={cardStyle.line3}>
-            <Image style={{ width: 20, height: 20, marginRight: 5 }} source={startImg} />
-            <Image style={{ width: 20, height: 20, marginRight: 5 }} source={startImg} />
-            <Image style={{ width: 20, height: 20, marginRight: 5 }} source={startImg} />
-            <Image style={{ width: 20, height: 20, marginRight: 5 }} source={startImg} />
-            <Image style={{ width: 20, height: 20, marginRight: 5 }} source={startImg} />
+            <Stars n={grade} />
             <Text style={cardStyle.note}>{props.doctorNote}</Text>
           </View>
         </View>

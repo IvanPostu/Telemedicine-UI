@@ -51,6 +51,7 @@ class NotificationScreenComponent extends Component<DoctorListScreenPropType> {
                   />
                   <DoctorInfo
                     navigation={this.props.navigation}
+                    doctorImage={this.props.doctors[0].image}
                     doctorName={this.props.doctors[0].name}
                     doctorNote={this.props.doctors[0].grade}
                     doctorType={this.props.doctors[0].specialisation}

@@ -5,12 +5,13 @@ import { ThreePoints } from '@/components/Icons/ThreePoints/ThreePoints'
 import { GlobalStateType } from '@/store'
 import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import React, { Component, ReactElement } from 'react'
-import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Image, ImageSourcePropType } from 'react-native'
 import { connect } from 'react-redux'
 import location from '@/assets/location.png'
 import maps from '@/assets/maps.png'
 import { ButtonOne } from '@/components/ButtonOne/ButtonOne'
 import { rootGreenColor } from '@/constants'
+import { BottomMenu } from '@/components/BotomMenu/BottomMenu'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -32,6 +33,7 @@ export class DoctorDetailsScreenComponent extends Component<DoctorDetailsScreenC
     doctorName: string
     doctorType: string
     doctorNote: string
+    doctorImage: ImageSourcePropType
     doctorLocation: string
     doctorDescription: string
   }
@@ -41,6 +43,7 @@ export class DoctorDetailsScreenComponent extends Component<DoctorDetailsScreenC
     const doctorId = props.route.params.doctorId
     const d = props.doctors.find((a) => a.doctorId === doctorId)
     this._doctor = {
+      doctorImage: d?.image as ImageSourcePropType,
       doctorName: d?.name as string,
       doctorNote: d?.grade as string,
       doctorType: d?.specialisation as string,
@@ -59,6 +62,7 @@ export class DoctorDetailsScreenComponent extends Component<DoctorDetailsScreenC
         />
         <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
           <DoctorCardA
+            doctorImage={this._doctor.doctorImage}
             rightMargin={40}
             style={{
               borderColor: 'transparent',
@@ -104,6 +108,11 @@ export class DoctorDetailsScreenComponent extends Component<DoctorDetailsScreenC
             </ButtonOne>
           </View>
         </ScrollView>
+        <BottomMenu
+          navigation={this.props.navigation}
+          selected={'Notification'}
+          notificationsIsPresent={false}
+        />
       </View>
     )
   }
